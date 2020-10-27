@@ -12,7 +12,7 @@ class CoreObject
         $this->class = get_class($this);
     }
 
-    public function conn()
+    public static function conn()
     {
         $conn = require  $_SERVER['DOCUMENT_ROOT'] . "/application/config/database.php";
         return $conn;
@@ -21,6 +21,13 @@ class CoreObject
     private function store()
     {
         $query = "INSERT INTO user (`CREATION_TIME`, `LOGIN`, `PSSWD`) VALUES ()";
+    }
+
+    public function query($query) {
+        if (self::conn()->query($query)) {
+            return true;
+        }
+        return false;
     }
 
     public function getInstance($id)
