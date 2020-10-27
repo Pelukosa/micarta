@@ -1,0 +1,13 @@
+.icon-category {
+    width: 25px;
+}
+
+.panel-category:active {
+    transform: scale(.9);
+    transition-duration: .05s;
+}
+
+.panel-category-active {
+    color: white;
+    background: #48bb78;
+}
