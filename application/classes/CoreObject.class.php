@@ -23,9 +23,10 @@ class CoreObject
         $query = "INSERT INTO user (`CREATION_TIME`, `LOGIN`, `PSSWD`) VALUES ()";
     }
 
-    public function query($query) {
-        if (self::conn()->query($query)) {
-            return true;
+    public static function query($query) {
+        $ret = self::conn()->query($query);
+        if ($ret) {
+            return $ret;
         }
         return false;
     }
