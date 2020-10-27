@@ -99,10 +99,8 @@ $products = $product->getPublicList();
             <?php } ?>
         </div>
 
-
         <!--Divider-->
         <hr class="border-b-2 border-gray-400 mb-8 mx-4">
-
 
     </div>
     <!--/container-->
