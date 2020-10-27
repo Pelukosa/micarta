@@ -21,7 +21,6 @@ $products = $product->getPublicList();
     <meta name="description" content="description here">
     <meta name="keywords" content="keywords,here">
     <link href="https://unpkg.com/tailwindcss/dist/tailwind.min.css" rel="stylesheet">
-    <!--Replace with your tailwind.css once created-->
 
 </head>
 
@@ -70,7 +69,7 @@ $products = $product->getPublicList();
             <!--Title-->
             <div class=" font-sans">
             <h1 class="font-bold font-sans break-normal text-gray-900 pt-6 pb-2 text-3xl md:text-4xl">Hamburguesería</h1>
-            <p class="text-sm md:text-base font-normal text-gray-600">Published 19 February 2019</p>
+            <p class="text-sm md:text-base font-normal text-gray-600">Actualizada 27 de ocubre de 2020</p>
         </div>
         <?php if ($user->showFamilyIcons()) { ?>
             <div class="grid grid-cols-6 sm:grid-cols-6 md:grid-cols-6 xl:grid-cols-6 gap-3 ">
