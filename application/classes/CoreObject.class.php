@@ -83,11 +83,6 @@ class CoreObject
         return true;
     }
 
-    public function prePrint($data)
-    {
-        echo '<pre>', print_r($data, true), '</pre>';
-    }
-
     private function table()
     {
         return $this->table;
