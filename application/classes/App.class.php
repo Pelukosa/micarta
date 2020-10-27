@@ -2,7 +2,7 @@
 
 class App {
     
-    public function prePrint($data)
+    public static function prePrint($data)
     {
         echo '<pre>', print_r($data, true), '</pre>';
     }
