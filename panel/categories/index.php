@@ -207,6 +207,7 @@ $userProductFamilies = $productfamilies->getUserfamilies();
                     .then(function(response) {
                         if (response.ok) {
                             response.json().then(function(data) {
+                                console.log(data);
                                 $(".count-active-families").text(data);
                             });
 
