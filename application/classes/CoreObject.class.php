@@ -2,14 +2,29 @@
 
 class CoreObject
 {
-
+    static private $AppIstanciatedObjects = null;
     public $class;
     public $user;
 
-    private function __construct()
+    private function __construct($id = null)
     {
         $this->user = new User(1);
         $this->class = get_class($this);
+    }
+
+    public function getInstance($id = null)
+    {
+        $class = get_called_class();
+
+        if (self::$AppIstanciatedObjects[$class][$id]) {
+            return self::$AppIstanciatedObjects[$class][$id];
+        }
+
+        try {
+            return new $class($id);
+        } catch (Exception $e) {
+            return new $class();
+        }
     }
 
     public static function conn()
@@ -23,7 +38,8 @@ class CoreObject
         $query = "INSERT INTO user (`CREATION_TIME`, `LOGIN`, `PSSWD`) VALUES ()";
     }
 
-    public static function query($query) {
+    public static function query($query)
+    {
         $ret = self::conn()->query($query);
         if ($ret) {
             return $ret;
@@ -31,13 +47,8 @@ class CoreObject
         return false;
     }
 
-    public function getInstance($id)
+    public function getHost()
     {
-        $object = new $this->class($id);
-        return $object;
-    }
-
-    public function getHost() {
         $domainHost = array_shift((explode('.', $_SERVER['HTTP_HOST'])));
 
         return $domainHost;
@@ -46,7 +57,7 @@ class CoreObject
     public function getObjectFields()
     {
         $array = $this->getList(" AND ID = '$this->id' LIMIT 1");
-        
+
 
         foreach ($array as $row) {
             $object = $row;
