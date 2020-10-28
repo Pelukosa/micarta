@@ -12,7 +12,7 @@ class CoreObject
         $this->class = get_class($this);
     }
 
-    public function getInstance($id = null)
+    public static function getInstance($id = null)
     {
         $class = get_called_class();
 
