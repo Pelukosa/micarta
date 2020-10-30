@@ -75,8 +75,14 @@ $families = $productfamilies->getList(" AND ID NOT IN ('" . implode("','", array
             </div>
 
             <!--Divider-->
-            <hr class="border-b-2 border-gray-400 my-8 mx-4">
-
+            <hr class="border-b-1 border-gray-400 my-8 mx-4">
+            <div class="flex p-3">
+                <h3 class="font-bold text-gray-900 text-2xl mr-2 p-2">Mis categorías activas</h3>
+                <button onclick="location.reload()" class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 mr-2 border-b-4 border-blue-700 hover:border-blue-500 rounded">
+                    Recargar
+                </button>
+                <p id="save-text" class="font-bold text-green-500 align-middle p-3" style="display: none;">Guardado!</p>
+            </div>
             <div class="flex flex-row flex-wrap flex-grow mt-2">
                 <?php foreach ($userProductFamilies as $row) { ?>
                     <div class="m-3">
@@ -86,6 +92,12 @@ $families = $productfamilies->getList(" AND ID NOT IN ('" . implode("','", array
                         </button>
                     </div>
                 <?php } ?>
+
+            </div>
+
+            <hr class="border-b-1 border-gray-400 my-8 mx-4">
+
+            <div class="flex flex-row flex-wrap flex-grow mt-2">
                 <?php foreach ($families as $row) { ?>
                     <div class="m-3">
                         <button class="familie bg-white text-gray-500 font-bold rounded border-b-2 border-green-500 shadow-md py-2 px-6 inline-flex items-center panel-category" id="<?php echo $row["CODE"]; ?>">
@@ -95,7 +107,6 @@ $families = $productfamilies->getList(" AND ID NOT IN ('" . implode("','", array
                     </div>
                 <?php } ?>
             </div>
-
 
         </div>
         <!--/container-->
@@ -198,6 +209,7 @@ $families = $productfamilies->getList(" AND ID NOT IN ('" . implode("','", array
             $(".familie").click(function() {
                 let data = new FormData();
                 var code = $(this).attr("id");
+                $("#save-text").css("display", "block");
                 var check = 0;
                 if (!$(this).hasClass("panel-category-active")) {
                     check = 1;
