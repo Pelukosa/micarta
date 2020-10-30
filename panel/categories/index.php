@@ -3,9 +3,8 @@ include("../config/config.php");
 
 $productfamilies = new ProductFamily();
 $product = new Product();
-$families = $productfamilies->getList(" ORDER BY NAME");
 $userProductFamilies = $productfamilies->getUserfamilies();
-
+$families = $productfamilies->getList(" AND ID NOT IN ('" . implode("','", array_keys($userProductFamilies)) . "') ORDER BY NAME");
 ?>
 
 <!DOCTYPE html>
@@ -79,11 +78,17 @@ $userProductFamilies = $productfamilies->getUserfamilies();
             <hr class="border-b-2 border-gray-400 my-8 mx-4">
 
             <div class="flex flex-row flex-wrap flex-grow mt-2">
+                <?php foreach ($userProductFamilies as $row) { ?>
+                    <div class="m-3">
+                        <button class="familie bg-white text-gray-500 font-bold rounded border-b-2 border-green-500 shadow-md py-2 px-6 inline-flex items-center panel-category panel-category-active" id="<?php echo $row["CODE"]; ?>">
+                            <span class=" mr-2"><?php echo $row["NAME"]; ?> </span>
+                            <img class="icon-category" src="../../assets/icons/<?php echo $row["ICON"]; ?>.svg" alt="<?php echo $row["NAME"]; ?>">
+                        </button>
+                    </div>
+                <?php } ?>
                 <?php foreach ($families as $row) { ?>
                     <div class="m-3">
-                        <button class="familie bg-white text-gray-500 font-bold rounded border-b-2 border-green-500 shadow-md py-2 px-6 inline-flex items-center panel-category <?php if ($userProductFamilies[$row["ID"]]) {
-                                                                                                                                                                                    echo "panel-category-active";
-                                                                                                                                                                                } ?>" id="<?php echo $row["CODE"]; ?>"">
+                        <button class="familie bg-white text-gray-500 font-bold rounded border-b-2 border-green-500 shadow-md py-2 px-6 inline-flex items-center panel-category" id="<?php echo $row["CODE"]; ?>">
                             <span class=" mr-2"><?php echo $row["NAME"]; ?> </span>
                             <img class="icon-category" src="../../assets/icons/<?php echo $row["ICON"]; ?>.svg" alt="<?php echo $row["NAME"]; ?>">
                         </button>
