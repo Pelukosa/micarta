@@ -76,11 +76,15 @@ $families = $productfamilies->getList(" AND ID NOT IN ('" . implode("','", array
 
             <!--Divider-->
             <hr class="border-b-1 border-gray-400 my-8 mx-4">
-            <div class="flex p-3">
-                <h3 class="font-bold text-gray-900 text-2xl mr-2 p-2">Mis categorías activas</h3>
-                <button onclick="location.reload()" class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 mr-2 border-b-4 border-blue-700 hover:border-blue-500 rounded">
-                    Recargar
-                </button>
+            <div class="md:flex p-3">
+                <div class="sm:w-100">
+                    <h3 class="font-bold text-gray-900 text-2xl mr-2 p-2">Mis categorías activas</h3>
+                </div>
+                <div>
+                    <button onclick="location.reload()" class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 mr-2 border-b-4 border-blue-700 hover:border-blue-500 rounded">
+                        Recargar
+                    </button>
+                </div>
                 <p id="save-text" class="font-bold text-green-500 align-middle p-3" style="display: none;">Guardado!</p>
             </div>
             <div class="flex flex-row flex-wrap flex-grow mt-2">
