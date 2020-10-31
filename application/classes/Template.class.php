@@ -17,7 +17,6 @@ class Template
 
     public static function renderHeadPanel($name)
     {
-        $ret = require $_SERVER['DOCUMENT_ROOT'] . "/application/templates/panel/header.php";
         $ret = "<head>";
         $ret .= '<meta charset="UTF-8">';
         $ret .= '<meta name="viewport" content="width=device-width, initial-scale=1.0">';
@@ -32,6 +31,6 @@ class Template
         $ret .= '<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js" integrity="sha256-XF29CBwU1MWLaGEnsELogU6Y6rcc5nCkhhx89nFMIDQ=" crossorigin="anonymous"></script>';
         $ret .= '<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>';
         $ret .= '<script src="' . App::getHost() . '/assets/js/main.js"></script>';
-        return $ret;
+        echo $ret;
     }
 }
