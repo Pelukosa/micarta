@@ -1,13 +1,13 @@
 <?php
 $path = $_SERVER["REQUEST_URI"];
 $file = basename($path, ".php");
-
-$public = "http://" . $_SERVER["HTTP_HOST"];
-$url_index = "http://" . $_SERVER["HTTP_HOST"] . "/panel/";
-$url_categories = "http://" . $_SERVER["HTTP_HOST"] . "/panel/categories/";
-$url_product = "http://" . $_SERVER["HTTP_HOST"] . "/panel/product/";
-$url_qr = "http://" . $_SERVER["HTTP_HOST"] . "/panel/qr/";
-$profile_url = "http://" . $_SERVER["HTTP_HOST"] . "/panel/profile/";
+$host =  App::getHost();
+$public = $host;
+$url_index =  $host . "/panel/";
+$url_categories =  $host . "/panel/categories/";
+$url_product = $host . "/panel/product/";
+$url_qr = $host . "/panel/qr/";
+$profile_url = $host . "/panel/profile/";
 
 ?>
 
