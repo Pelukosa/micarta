@@ -55,7 +55,7 @@ $products = $product->getPublicList();
                         </li>
                     <?php } ?>
                     <li class="mr-3">
-                        <a class="inline-block text-gray-600 no-underline hover:text-gray-900 hover:text-underline py-2 px-4" href="login.php">Login</a>
+                        <a class="inline-block text-gray-600 no-underline hover:text-gray-900 hover:text-underline py-2 px-4" href="panel">Login</a>
                     </li>
                 </ul>
             </div>
