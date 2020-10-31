@@ -9,6 +9,8 @@ class Product extends CoreObject
     public function __construct($id = "")
     {
         $this->table = "product";
+        $this->_realName = "Producto";
+        $this->_realPluralName = "Productos";
         $this->class = get_class($this);
         $this->user = new User(1);
         $this->id = $id;
