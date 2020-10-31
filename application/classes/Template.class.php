@@ -1,15 +1,37 @@
 <?php
 
-class Template {
+class Template
+{
 
-    public function renderPanelMenu() {
+    public static function renderPanelMenu()
+    {
         $ret = require  $_SERVER['DOCUMENT_ROOT'] . "/application/templates/panel/menu.php";
         return $ret;
     }
 
-    public function renderProductsStats() {
+    public static function renderProductsStats()
+    {
         $ret = require  $_SERVER['DOCUMENT_ROOT'] . "/application/templates/panel/products-stats.php";
         return $ret;
     }
 
+    public static function renderHeadPanel($name)
+    {
+        $ret = require $_SERVER['DOCUMENT_ROOT'] . "/application/templates/panel/header.php";
+        $ret = "<head>";
+        $ret .= '<meta charset="UTF-8">';
+        $ret .= '<meta name="viewport" content="width=device-width, initial-scale=1.0">';
+        $ret .= '<meta http-equiv="X-UA-Compatible" content="ie=edge">';
+        $ret .= '<title>' . $name . ' | Panel de control</title>';
+        $ret .= '<meta name="description" content="description here">';
+        $ret .= '<meta name="keywords" content="keywords,here">';
+        $ret .= '<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">';
+        $ret .= '<link href="https://unpkg.com/tailwindcss@next/dist/tailwind.min.css" rel="stylesheet">';
+        $ret .= '<link href="' . App::getHost() . '/assets/css/master.css" rel="stylesheet">';
+        $ret .= '<script src="https://kit.fontawesome.com/03a10de34c.js" crossorigin="anonymous"></script>';
+        $ret .= '<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js" integrity="sha256-XF29CBwU1MWLaGEnsELogU6Y6rcc5nCkhhx89nFMIDQ=" crossorigin="anonymous"></script>';
+        $ret .= '<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>';
+        $ret .= '<script src="' . App::getHost() . '/assets/js/main.js"></script>';
+        return $ret;
+    }
 }
