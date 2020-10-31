@@ -22,4 +22,8 @@ class App {
         return $data;
     }
 
+    public function getHost() {
+        return "https://" . $_SERVER['HTTP_HOST'];
+    }
+
 }
