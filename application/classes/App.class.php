@@ -22,7 +22,7 @@ class App {
         return $data;
     }
 
-    public function getHost() {
+    public static function getHost() {
         return "https://" . $_SERVER['HTTP_HOST'];
     }
 
