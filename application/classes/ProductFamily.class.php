@@ -7,6 +7,8 @@ class ProductFamily extends CoreObject {
 
     public function __construct() {
         $this->table = "product_family";
+        $this->_realName = "Categoria";
+        $this->_realPluralName = "Categorias";
         $this->user = new User(1);
     }
 
