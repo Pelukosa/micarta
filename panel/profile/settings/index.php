@@ -18,31 +18,15 @@ if ($_GET["f"]) {
 }
 
 $products = $product->getList($auxQuery);
-
+if (!empty($_POST)) {
+    $account->storePost($_POST);
+}
 ?>
 
 <!DOCTYPE html>
 <html lang="es">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Perfil | Panel de control</title>
-    <meta name="description" content="description here">
-    <meta name="keywords" content="keywords,here">
-
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-    <link href="https://unpkg.com/tailwindcss@next/dist/tailwind.min.css" rel="stylesheet">
-    <link href="../../../assets/css/master.css" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/03a10de34c.js" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js" integrity="sha256-XF29CBwU1MWLaGEnsELogU6Y6rcc5nCkhhx89nFMIDQ=" crossorigin="anonymous"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="../../../assets/js/main.js"></script>
-
-
-
-</head>
+<?php $template->renderHeadPanel("Estilo de carta"); ?>
 
 <body class="bg-gray-100 font-sans leading-normal tracking-normal">
 
@@ -54,47 +38,24 @@ $products = $product->getList($auxQuery);
         <div class="w-full px-4 md:px-0 md:mt-8 mb-16 text-gray-800 leading-normal">
 
             <div class="grid grid-cols-6 gap-4">
-                <div class="col-span-1 bg-white">
-                    <!-- component -->
-                    <div class="">
-                        <ul class="list-reset">
-                            <li>
-                                <p class="block p-4 text-grey-darker border-purple hover:bg-grey-lighter border-r-4"><?php echo $user->user_config["COMPANY_NAME"]; ?></p>
-                            </li>
-                            <li class="border-b-2 border-black-500 hover:bg-green-100">
-                                <a href="../" class="block p-4 text-grey-darker font-bold border-purple hover:bg-grey-lighter border-r-4">Resumen</a>
-                            </li>
-                            <li class="border-b-2 border-black-500 hover:bg-green-100">
-                                <a href="#" class="block p-4 text-grey-darker font-bold border-grey-lighter hover:border-purple-light hover:bg-grey-lighter border-r-4">Preferencias</a>
-                            </li>
-                            <li class="border-b-2 border-black-500 hover:bg-green-100">
-                                <a href="#" class="block p-4 text-grey-darker font-bold border-grey-lighter hover:border-purple-light hover:bg-grey-lighter border-r-4">Estilo de carta</a>
-                            </li>
-                            <li class="border-b-2 border-black-500 hover:bg-green-100">
-                                <a href="#" class="block p-4 text-grey-darker font-bold border-grey-lighter hover:border-purple-light hover:bg-grey-lighter border-r-4">Seguridad</a>
-                            </li>
-                            <li class="border-b-2 border-black-500 hover:bg-green-100">
-                                <a href="#" class="block p-4 text-grey-darker font-bold border-grey-lighter hover:border-purple-light hover:bg-grey-lighter border-r-4">Contacto</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+                <?php echo Template::renderAccountNav(); ?>
                 <div class="col-span-5 bg-white">
                     <div class="grid grid-cols-1 gap-4 flex ">
                         <div class="w-100 flex content-center">
-                            <form class="w-full max-w-2xl">
+                            <form class="w-full max-w-2xl" action="index.php" method="POST">
+                                <input type="submit" class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 mr-2 border-b-4 border-blue-700 hover:border-blue-500 rounded" value="Guardar">
                                 <div class="flex flex-wrap -mx-3 mb-6">
                                     <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="local-name">
                                             Nombre de mi local
                                         </label>
-                                        <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="local-name" type="text" placeholder="MacLaren's restaurant">
+                                        <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="local-name" name="name" type="text" placeholder="MacLaren's restaurant" value="<?php echo $account->fields["NAME"]; ?>">
                                     </div>
                                     <div class="w-full md:w-1/2 px-3">
                                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="local-slogan">
                                             Eslogan
                                         </label>
-                                        <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="local-slogan" type="text" placeholder="Sabor a parrilla">
+                                        <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="local-slogan" name="slogan" type="text" placeholder="Sabor a parrilla" value="<?php echo $account->fields["SLOGAN"]; ?>">
                                     </div>
                                 </div>
                                 <div class="flex flex-wrap -mx-3 mb-6">
@@ -102,7 +63,7 @@ $products = $product->getList($auxQuery);
                                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="local-address">
                                             Dirección de mi local
                                         </label>
-                                        <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="local-address" type="text" placeholder="C/ Bodegas reales 111">
+                                        <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="local-address" name="address" type="text" placeholder="C/ Bodegas reales 111" value="<?php echo $account->fields["ADDRESS"]; ?>">
                                     </div>
                                 </div>
                                 <div class="flex flex-wrap -mx-5 mb-2">
@@ -110,17 +71,19 @@ $products = $product->getList($auxQuery);
                                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="local-city">
                                             Población
                                         </label>
-                                        <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="local-city" type="text" placeholder="Barcelona">
+                                        <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="local-city" name="city" type="text" placeholder="Barcelona" value="<?php echo $account->fields["CITY"]; ?>">
                                     </div>
                                     <div class="w-full md:w-2/5 px-3 mb-6 md:mb-0">
                                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="local-county">
                                             Provincia
                                         </label>
                                         <div class="relative">
-                                            <select class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="local-county">
+                                            <select class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="local-county" name="county">
                                                 <option>Seleccionar</option>
                                                 <?php foreach (App::getCounties() as $k => $v) { ?>
-                                                    <option value="<?php echo $k; ?>"><?php echo $v; ?></option>
+                                                    <option <?php if ($account->fields["COUNTY"] == $k) {
+                                                                echo "selected";
+                                                            } ?> value="<?php echo $k; ?>"><?php echo $v; ?></option>
                                                 <?php } ?>
                                             </select>
                                             <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
@@ -133,7 +96,7 @@ $products = $product->getList($auxQuery);
                                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="local-postalcode">
                                             Código postal
                                         </label>
-                                        <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="local-postalcode" type="number" placeholder="08025">
+                                        <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="local-postalcode" name="phone" type="number" placeholder="08025" value="<?php echo $account->fields["POSTAL_CODE"]; ?>">
                                     </div>
                                 </div>
                             </form>

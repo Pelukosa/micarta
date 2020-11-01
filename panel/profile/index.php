@@ -25,25 +25,7 @@ $products = $product->getList($auxQuery);
 <!DOCTYPE html>
 <html lang="es">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Perfil | Panel de control</title>
-    <meta name="description" content="description here">
-    <meta name="keywords" content="keywords,here">
-
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-    <link href="https://unpkg.com/tailwindcss@next/dist/tailwind.min.css" rel="stylesheet">
-    <link href="../../assets/css/master.css" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/03a10de34c.js" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js" integrity="sha256-XF29CBwU1MWLaGEnsELogU6Y6rcc5nCkhhx89nFMIDQ=" crossorigin="anonymous"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="../../assets/js/main.js"></script>
-
-
-
-</head>
+<?php $template->renderHeadPanel("Perfil"); ?>
 
 <body class="bg-gray-100 font-sans leading-normal tracking-normal">
 
@@ -55,31 +37,7 @@ $products = $product->getList($auxQuery);
         <div class="w-full px-4 md:px-0 md:mt-8 mb-16 text-gray-800 leading-normal">
 
             <div class="grid grid-cols-6 gap-4">
-                <div class="col-span-1 bg-white">
-                    <!-- component -->
-                    <div class="">
-                        <ul class="list-reset">
-                            <li>
-                                <p class="block p-4 text-grey-darker border-purple hover:bg-grey-lighter border-r-4"><?php echo $user->user_config["COMPANY_NAME"]; ?></p>
-                            </li>
-                            <li class="border-b-2 border-black-500 hover:bg-green-100">
-                                <a href="#" class="block p-4 text-grey-darker font-bold border-purple hover:bg-grey-lighter border-r-4">Resumen</a>
-                            </li>
-                            <li class="border-b-2 border-black-500 hover:bg-green-100">
-                                <a href="settings" class="block p-4 text-grey-darker font-bold border-grey-lighter hover:border-purple-light hover:bg-grey-lighter border-r-4">Preferencias</a>
-                            </li>
-                            <li class="border-b-2 border-black-500 hover:bg-green-100">
-                                <a href="#" class="block p-4 text-grey-darker font-bold border-grey-lighter hover:border-purple-light hover:bg-grey-lighter border-r-4">Estilo de carta</a>
-                            </li>
-                            <li class="border-b-2 border-black-500 hover:bg-green-100">
-                                <a href="#" class="block p-4 text-grey-darker font-bold border-grey-lighter hover:border-purple-light hover:bg-grey-lighter border-r-4">Seguridad</a>
-                            </li>
-                            <li class="border-b-2 border-black-500 hover:bg-green-100">
-                                <a href="#" class="block p-4 text-grey-darker font-bold border-grey-lighter hover:border-purple-light hover:bg-grey-lighter border-r-4">Contacto</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+                <?php echo Template::renderAccountNav(); ?>
                 <div class="col-span-5 bg-white">asfdsf</div>
             </div>
 
