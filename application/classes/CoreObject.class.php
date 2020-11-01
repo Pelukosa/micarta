@@ -5,6 +5,7 @@ class CoreObject
     static private $AppIstanciatedObjects = null;
     public $class;
     public $user;
+    public $account;
 
     private function __construct($id = null)
     {
@@ -33,11 +34,6 @@ class CoreObject
         return $conn;
     }
 
-    private function store()
-    {
-        $query = "INSERT INTO user (`CREATION_TIME`, `LOGIN`, `PSSWD`) VALUES ()";
-    }
-
     public static function query($query)
     {
         $ret = self::conn()->query($query);
@@ -64,19 +60,6 @@ class CoreObject
         }
 
         return $object;
-    }
-
-    public function get($field)
-    {
-        $table = $this->table();
-        $query = "SELECT $field FROM $table WHERE ID = '$this->$field'";
-        $rs = self::conn()->query($query);
-        $data = [];
-        foreach ($rs as $v) {
-            $data[$v["ID"]] = $v;
-        }
-
-        return $data;
     }
 
     public function getList($auxQuery = null)
@@ -120,4 +103,71 @@ class CoreObject
         }
         return $fields;
     }
+
+    public function get($field) {
+        return $this->fields[$field];
+    }
+
+    public function set($field, $value) {
+        $this->fields[$field] = $value;
+        
+        return $this;
+    }
+    
+    public function store() {
+        
+        $fields = $this->getFields();
+        $log = [];
+        $toUpdate = "UPDATE " . $this->table . " SET ";
+        foreach ($fields as $k => $v) {
+            $toUpdate .= '`' . $k . '` = ' . "'" . $v . "', ";
+            $log[$k] = $v;
+        }
+        $toUpdate .= "`LAST_MODIFICATION_TIME` = " . "'" . App::now() . "'";
+        $toUpdate .= " WHERE ID = '" . $this->id . "'";
+
+        self::conn()->query($toUpdate);
+        self::conn()->query($this->log($log));
+    }
+
+    public function storePost($post) {
+        foreach ($post as $k => $v) {
+            $this->set(strtoupper($k), $v);
+        }
+        $this->store();
+
+        return $this;
+    }
+
+    public function getFields() {
+        $fields = $this->fields;
+        $fields = self::removeFieldsUpdate($fields);
+
+        return $fields;
+    }
+
+    public static function removeFieldsUpdate($fields) {
+        $remove = [
+            "ID",
+            "CREATOR_USER_ID",
+            "CREATION_TIME",
+            "LAST_MODFICATION_TIME",
+            "HOST",
+            "CODE"
+        ];
+        foreach ($remove as $row) {
+            unset($fields[$row]);
+        }
+
+        return $fields;
+    }
+
+    public function log($log) {
+        $fields = "(`DATE`, `ACCOUNT_ID`, `USER_ID`, `OBJECT`)";
+        $values = "('".App::now()."', '".$this->account."', '".$this->user."', '".$this->table."')";
+        $ret = "INSERT INTO LOG $fields VALUES $values";
+        
+        return $ret;
+    }
+
 }
