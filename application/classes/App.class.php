@@ -16,7 +16,7 @@ class App {
         $rs = CoreObject::conn()->query($query);
         $data = [];
         foreach ($rs as $v) {
-            $data[$v["CODE"]] = $v["NAME"];
+            $data[$v["ID"]] = $v["NAME"];
         }
 
         return $data;
@@ -24,6 +24,10 @@ class App {
 
     public static function getHost() {
         return "https://" . $_SERVER['HTTP_HOST'];
+    }
+
+    public static function now() {
+        return Date("Y-m-d H:i:s");
     }
 
 }
