@@ -11,7 +11,7 @@ class App {
 
     }
 
-    public function getCounties() {
+    public function static getCounties() {
         $query = "SELECT * FROM COUNTY";
         $rs = CoreObject::conn()->query($query);
         $data = [];
