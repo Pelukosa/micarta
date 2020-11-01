@@ -12,4 +12,5 @@ function myAutoLoader($className) {
 }
 $host = array_shift((explode('.', $_SERVER['HTTP_HOST'])));
 $user = new User(1);
+$account = new Account($user->fields["ACCOUNT_ID"]);
 $template = new Template();
