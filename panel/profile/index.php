@@ -2,7 +2,7 @@
 include("../config/config.php");
 
 $productFamilies = new ProductFamily();
-$families = $productFamilies->getUserFamilies();
+$families = $productFamilies->getAccountFamilies();
 
 $familyCodesByUser = array();
 foreach ($families as $family) {
@@ -37,8 +37,9 @@ $products = $product->getList($auxQuery);
         <div class="w-full px-4 md:px-0 md:mt-8 mb-16 text-gray-800 leading-normal">
 
             <div class="grid grid-cols-6 gap-4">
-                <?php echo Template::renderAccountNav(); ?>
-                <div class="col-span-5 bg-white">asfdsf</div>
+                <?php echo Template::renderAccountNav("summary"); ?>
+                <div class="col-span-5 bg-white">
+                </div>
             </div>
 
         </div>

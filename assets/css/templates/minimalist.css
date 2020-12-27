@@ -1,0 +1,60 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200&display=swap');
+
+.c-body {
+    font-family: 'Oswald', sans-serif;
+    background-color: #ffffff;
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23efeff0' fill-opacity='0.28'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+.c-account-name {
+    display: none;
+}
+
+.c-container {
+    padding: 15px 10px;
+}
+
+.c-menu{
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 3em;
+}
+
+.c-hero {
+    text-transform: uppercase;
+    font-weight: bold;
+    color: white;
+    font-size: 1.2em;
+    background: black;
+    text-align: center;
+    padding: 5px 0;
+}
+
+.c-product {
+    display: inline-block;
+    padding: 10px 0;
+    width: 100%;
+}
+
+.c-info {
+    width: 80%;
+    float: left;
+}
+
+.c-name {
+    color: black;
+    font-weight: bold;
+}
+
+.c-description {
+    color: #6d6d6d;
+    font-size: .9em;
+}
+
+.c-price {
+    color: black;
+    float: right;
+    width: 20%;
+    font-weight: bold;
+    text-align: right;
+}

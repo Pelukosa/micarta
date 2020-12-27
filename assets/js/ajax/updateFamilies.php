@@ -2,7 +2,7 @@
 include("../../../panel/config/config.php");
 
 $productFamily = new ProductFamily();
-$families = $productFamily->getUserFamilies();
+$families = $productFamily->getAccountFamilies();
 
 $familyCodesByUser = array();
 foreach ($families as $family) {

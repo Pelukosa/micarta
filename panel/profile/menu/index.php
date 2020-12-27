@@ -1,23 +1,19 @@
 <?php
 include("../../config/config.php");
 
-$productFamilies = new ProductFamily();
-$families = $productFamilies->getUserFamilies();
 
-$familyCodesByUser = array();
-foreach ($families as $family) {
-    $familyCodesByUser[] = $family["CODE"];
+$accountConfig = new AccountConfig($account->account_config["ID"]);
+
+if (!empty($_POST)) {
+    $accountConfig->storePost($_POST);
 }
 
-$product = new Product();
-$auxQuery = "";
-if ($_GET["f"]) {
-    $auxQuery = " AND FAMILY_CODE = '" . $_GET['f'] . "'";
-} else {
-    $auxQuery = " AND FAMILY_CODE IN ('" . implode("','", $familyCodesByUser) . "')";
+$menuStyles = App::query("SELECT * FROM cart_style");
+$styles = [];
+foreach ($menuStyles as $row) {
+    $styles[$row["ID"]] = $row;
 }
 
-$products = $product->getList($auxQuery);
 
 ?>
 
@@ -36,85 +32,57 @@ $products = $product->getList($auxQuery);
         <div class="w-full px-4 md:px-0 md:mt-8 mb-16 text-gray-800 leading-normal">
 
             <div class="grid grid-cols-6 gap-4">
-                <?php echo Template::renderAccountNav(); ?>
-                <div class="col-span-5 bg-white">
+                <?php echo Template::renderAccountNav("menu"); ?>
+                <div class="col-span-5 p-5 bg-white">
                     <div class="grid grid-cols-1 gap-4 flex ">
                         <div class="w-100 flex content-center">
-                            <form class="w-full max-w-2xl">
-                                <div class="flex flex-wrap -mx-3 mb-6">
-                                    <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="local-name">
-                                            Nombre de mi local
-                                        </label>
-                                        <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="local-name" type="text" placeholder="MacLaren's restaurant">
-                                    </div>
-                                    <div class="w-full md:w-1/2 px-3">
-                                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="local-slogan">
-                                            Eslogan
-                                        </label>
-                                        <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="local-slogan" type="text" placeholder="Sabor a parrilla">
-                                    </div>
+                            <form class="w-full max-w-2xl" action="index.php" method="POST">
+                            <div class="w-100 inline-block">
+                                    <?php echo Form::renderSavebutton(); ?>
+                                    <?php if (!empty($_POST)) { ?>
+                                        <p id="saved" class="py-2 px-4 text-gray-400 italic float-left">Guardado !</p>
+                                    <?php } ?>
                                 </div>
-                                <div class="flex flex-wrap -mx-3 mb-6">
-                                    <div class="w-full px-3">
-                                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="local-address">
-                                            Dirección de mi local
-                                        </label>
-                                        <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="local-address" type="text" placeholder="C/ Bodegas reales 111">
-                                    </div>
-                                </div>
-                                <div class="flex flex-wrap -mx-5 mb-2">
-                                    <div class="w-full md:w-2/5 px-3 mb-6 md:mb-0">
-                                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="local-city">
-                                            Población
-                                        </label>
-                                        <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="local-city" type="text" placeholder="Barcelona">
-                                    </div>
-                                    <div class="w-full md:w-2/5 px-3 mb-6 md:mb-0">
-                                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="local-county">
-                                            Provincia
-                                        </label>
-                                        <div class="relative">
-                                            <select class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="local-county">
-                                                <option>Seleccionar</option>
-                                                <?php foreach (App::getCounties() as $k => $v) { ?>
-                                                    <option value="<?php echo $k; ?>"><?php echo $v; ?></option>
-                                                <?php } ?>
-                                            </select>
-                                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                                                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                                    <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="w-full md:w-1/5 px-3 mb-6 md:mb-0">
-                                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="local-postalcode">
-                                            Código postal
-                                        </label>
-                                        <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="local-postalcode" type="number" placeholder="08025">
-                                    </div>
-                                </div>
-                                <hr class="border-b-1 border-gray-400 my-8 mx-4">
-                                <div class="flex flex-wrap -mx-5 mb-2">
+                                <div class="flex flex-wrap mb-2">
                                     <div class="block">
-                                        <span class="text-gray-700">Checkboxes</span>
+                                        <span class="text-gray-700">Opciones de tu menú</span>
                                         <div class="mt-2">
-                                            <div>
+                                            <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+                                                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
+                                                    Estilo
+                                                </label>
+                                                <div class="relative">
+                                                    <select name="CART_STYLE_ID" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
+                                                        <?php foreach ($styles as $row) {
+                                                            $selected = "";
+                                                            if ($row["ID"] == $account->account_config["CART_STYLE_ID"]) {
+                                                                $selected = "selected";
+                                                            }
+                                                            echo "<option value='" . $row["ID"] . "' " . $selected . ">" . $row["NAME"] . "</option>";
+                                                        } ?>
+                                                    </select>
+                                                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                                                        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                                            <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="my-2">
                                                 <label class="inline-flex items-center">
-                                                    <input type="checkbox" class="form-checkbox" checked>
-                                                    <span class="ml-2">Option 1</span>
+                                                    <input type="hidden" name="SHOW_IMAGES[0]" value="0" />
+                                                    <input type="checkbox" name="SHOW_IMAGES[0]" <?php if ($accountConfig->fields["SHOW_IMAGES"] == 1) {
+                                                                                                        echo "checked";
+                                                                                                    } ?> value="1" />
+                                                    <span class="ml-2">Mostrar imágenes de tus productos</span>
                                                 </label>
                                             </div>
                                             <div>
                                                 <label class="inline-flex items-center">
-                                                    <input type="checkbox" class="form-checkbox">
-                                                    <span class="ml-2">Option 2</span>
-                                                </label>
-                                            </div>
-                                            <div>
-                                                <label class="inline-flex items-center">
-                                                    <input type="checkbox" class="form-checkbox">
-                                                    <span class="ml-2">Option 3</span>
+                                                    <input type="hidden" name="SHOW_PRICES[0]" value="0" />
+                                                    <input type="checkbox" name="SHOW_PRICES[0]" <?php if ($accountConfig->fields["SHOW_PRICES"] == 1) {
+                                                                                                        echo "checked";
+                                                                                                    } ?> value="1" />
+                                                    <span class="ml-2">Mostrar precios</span>
                                                 </label>
                                             </div>
                                         </div>

@@ -3,7 +3,7 @@ include("../config/config.php");
 
 $productfamilies = new ProductFamily();
 $product = new Product();
-$userProductFamilies = $productfamilies->getUserfamilies();
+$userProductFamilies = $productfamilies->getAccountFamilies();
 $families = $productfamilies->getList(" AND ID NOT IN ('" . implode("','", array_keys($userProductFamilies)) . "') ORDER BY NAME");
 ?>
 
@@ -64,11 +64,14 @@ $families = $productfamilies->getList(" AND ID NOT IN ('" . implode("','", array
                 </div>
                 <div>
                     <button onclick="location.reload()" class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 mr-2 border-b-4 border-blue-700 hover:border-blue-500 rounded">
-                        Recargar
+                        Guardar
                     </button>
                 </div>
                 <p id="save-text" class="font-bold text-green-500 align-middle p-3" style="display: none;">Guardado!</p>
             </div>
+            <form action="index.php" method="POST">
+                
+            </form>
             <div class="flex flex-row flex-wrap flex-grow mt-2">
                 <?php foreach ($userProductFamilies as $row) { ?>
                     <div class="m-3">
@@ -192,36 +195,6 @@ $families = $productfamilies->getList(" AND ID NOT IN ('" . implode("','", array
                 return false;
             }
 
-            $(".familie").click(function() {
-                let data = new FormData();
-                var code = $(this).attr("id");
-                $("#save-text").css("display", "block");
-                var check = 0;
-                if (!$(this).hasClass("panel-category-active")) {
-                    check = 1;
-                }
-                data.append('code', code);
-                data.append('check', check);
-
-                fetch("../../assets/js/ajax/updateFamilies.php", {
-                        method: "POST",
-                        body: data
-                    })
-                    .then(function(response) {
-                        if (response.ok) {
-                            response.json().then(function(data) {
-                                console.log(data);
-                                $(".count-active-families").text(data);
-                            });
-
-                        } else {
-                            throw "Error en la llamada";
-                        }
-                    })
-                    .catch(function(error) {
-
-                    });
-            })
         </script>
 
 </body>

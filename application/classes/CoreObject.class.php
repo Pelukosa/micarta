@@ -125,13 +125,18 @@ class CoreObject
         }
         $toUpdate .= "`LAST_MODIFICATION_TIME` = " . "'" . App::now() . "'";
         $toUpdate .= " WHERE ID = '" . $this->id . "'";
-
+        
         self::conn()->query($toUpdate);
         self::conn()->query($this->log($log));
     }
 
     public function storePost($post) {
+        //$checkboxFields = self::checkboxFields();
         foreach ($post as $k => $v) {
+            if (is_array($v)) {
+                $v = $v[0];
+            }
+               
             $this->set(strtoupper($k), $v);
         }
         $this->store();
@@ -167,6 +172,15 @@ class CoreObject
         $values = "('".App::now()."', '".$this->account."', '".$this->user."', '".$this->table."')";
         $ret = "INSERT INTO LOG $fields VALUES $values";
         
+        return $ret;
+    }
+
+    public function checkboxFields() {
+        $ret = [
+            "SHOW_IMAGES",
+            "SHOW_PRICES"
+        ];
+        $ret = array_flip($ret);
         return $ret;
     }
 

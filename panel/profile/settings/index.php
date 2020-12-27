@@ -1,23 +1,6 @@
 <?php
 include("../../config/config.php");
 
-$productFamilies = new ProductFamily();
-$families = $productFamilies->getUserFamilies();
-
-$familyCodesByUser = array();
-foreach ($families as $family) {
-    $familyCodesByUser[] = $family["CODE"];
-}
-
-$product = new Product();
-$auxQuery = "";
-if ($_GET["f"]) {
-    $auxQuery = " AND FAMILY_CODE = '" . $_GET['f'] . "'";
-} else {
-    $auxQuery = " AND FAMILY_CODE IN ('" . implode("','", $familyCodesByUser) . "')";
-}
-
-$products = $product->getList($auxQuery);
 if (!empty($_POST)) {
     $account->storePost($_POST);
 }
@@ -38,12 +21,18 @@ if (!empty($_POST)) {
         <div class="w-full px-4 md:px-0 md:mt-8 mb-16 text-gray-800 leading-normal">
 
             <div class="grid grid-cols-6 gap-4">
-                <?php echo Template::renderAccountNav(); ?>
-                <div class="col-span-5 bg-white">
+                <?php echo Template::renderAccountNav("settings"); ?>
+                <div class="col-span-5 p-5 bg-white">
                     <div class="grid grid-cols-1 gap-4 flex ">
                         <div class="w-100 flex content-center">
-                            <form class="w-full max-w-2xl" action="index.php" method="POST">
-                                <input type="submit" class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 mr-2 border-b-4 border-blue-700 hover:border-blue-500 rounded" value="Guardar">
+                            <form class="w-full max-w-2xl" action="index.php?cmd=saved" method="POST">
+                                <div class="w-100 inline-block">
+                                    <?php echo Form::renderSavebutton(); ?>
+                                    <?php if (!empty($_POST)) { ?>
+                                        <p id="saved" class="py-2 px-4 text-gray-400 italic float-left">Guardado !</p>
+                                    <?php } ?>
+                                </div>
+                                <hr class="border-b-1 w-100 border-gray-200 my-4">
                                 <div class="flex flex-wrap -mx-3 mb-6">
                                     <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="local-name">

@@ -31,13 +31,22 @@ class Product extends CoreObject
     {
         $host = parent::getHost();
         $table = $this->table;
+        $productFamily = new ProductFamily();
+        $productFamilies = $productFamily->getHostFamilies();
+        $familyCodes = [];
+        foreach ($productFamilies as $row) {
+            $familyCodes[$row["CODE"]] = $row["NAME"];
+        }
         $query = "SELECT * FROM $table WHERE TRUE $auxQuery AND `HOST` = '$host'";
         $rs = self::conn()->query($query);
         $data = [];
         foreach ($rs as $v) {
-            $data[$v["ID"]] = $v;
+            if (isset($familyCodes[$v["FAMILY_CODE"]])) {
+                $data[$v["FAMILY_CODE"] . "-" . $familyCodes[$v["FAMILY_CODE"]]][$v["ID"]] = $v;
+            }
+            
         }
-
+        
         return $data;
     }
 
@@ -64,16 +73,15 @@ class Product extends CoreObject
     public function countActiveProducts()
     {
         $productFamily = new ProductFamily();
-        $families = $productFamily->getUserFamilies();
+        $families = $productFamily->getAccountFamilies();
 
         $familyCodesByUser = array();
         foreach ($families as $family) {
             $familyCodesByUser[] = $family["CODE"];
         }
         $ret = self::count(" AND FAMILY_CODE IN ('" . implode("','", $familyCodesByUser) . "')");
-        
+
         return $ret;
- 
     }
 
     public function generateNewCode($familyCode)
@@ -82,7 +90,7 @@ class Product extends CoreObject
         foreach ($lastProductByFamily as $row) {
             $newCode = intval(explode("-", $row["CODE"])[2]) + 1;
         }
-        
+
         if ($newCode) {
             $newCode = $this->user->id . "-" . $familyCode . "-" . $newCode;
         } else {

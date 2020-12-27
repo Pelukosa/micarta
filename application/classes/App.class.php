@@ -30,4 +30,13 @@ class App {
         return Date("Y-m-d H:i:s");
     }
 
+    public static function query($query)
+    {
+        $ret = CoreObject::conn()->query($query);
+        if ($ret) {
+            return $ret;
+        }
+        return false;
+    }
+
 }

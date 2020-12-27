@@ -34,25 +34,50 @@ class Template
         echo $ret;
     }
 
-    public static function renderAccountNav() {
+    public static function renderAccountNav($active = false) {
+        $activeStyle = "bg-green-300";
+        if ($active == "summary") {
+            $summary = $activeStyle;
+        }
+        else if ($active == "settings") {
+            $settings = $activeStyle;
+        }
+        else if ($active == "menu") {
+            $menu = $activeStyle;
+        }
+        else if ($active == "security") {
+            $security = $activeStyle;
+        }
+        else if ($active == "contact") {
+            $contact = $activeStyle;
+        }
+
         $ret = '<div class="col-span-1 bg-white">';
         $ret .= '<div class="">';
         $ret .= '<ul class="list-reset">';
         $ret .= '<li><p class="block p-4 text-grey-darker border-purple hover:bg-grey-lighter border-r-4">Boxes</p></li>';
-        $ret .= '<li class="border-b-2 border-black-500 hover:bg-green-100">';
+        $ret .= '<li class="border-b-2 border-black-500 hover:bg-green-100 '.$summary.'">';
         $ret .= '<a href="' . App::getHost() . '/panel/profile" class="block p-4 text-grey-darker font-bold border-purple hover:bg-grey-lighter border-r-4">Resumen</a></li>';
-        $ret .= '<li class="border-b-2 border-black-500 hover:bg-green-100">';
+        $ret .= '<li class="border-b-2 border-black-500 hover:bg-green-100 '.$settings.'">';
         $ret .= '<a href="' . App::getHost() . '/panel/profile/settings" class="block p-4 text-grey-darker font-bold border-purple hover:bg-grey-lighter border-r-4">Preferencias</a></li>';
-        $ret .= '<li class="border-b-2 border-black-500 hover:bg-green-100">';
+        $ret .= '<li class="border-b-2 border-black-500 hover:bg-green-100 '.$menu.'">';
         $ret .= '<a href="' . App::getHost() . '/panel/profile/menu" class="block p-4 text-grey-darker font-bold border-purple hover:bg-grey-lighter border-r-4">Estilo de carta</a></li>';
-        $ret .= '<li class="border-b-2 border-black-500 hover:bg-green-100">';
+        $ret .= '<li class="border-b-2 border-black-500 hover:bg-green-100 '.$security.'">';
         $ret .= '<a href="' . App::getHost() . '/panel/profile/security" class="block p-4 text-grey-darker font-bold border-purple hover:bg-grey-lighter border-r-4">Seguridad</a></li>';
-        $ret .= '<li class="border-b-2 border-black-500 hover:bg-green-100">';
+        $ret .= '<li class="border-b-2 border-black-500 hover:bg-green-100 '.$contact.'">';
         $ret .= '<a href="' . App::getHost() . '/panel/profile/contact" class="block p-4 text-grey-darker font-bold border-purple hover:bg-grey-lighter border-r-4">Contacto</a></li>';
         $ret .= '</ul></div></div>';
         
         echo $ret;
                 
+    }
+
+    public static function renderInputButton() {
+        $ret = '<div id="ck-button"><label>';
+        $ret .= '<input type="checkbox" value="1"><span>Guardar</span>';
+        $ret .= '</label></div>';
+
+        echo $ret;
     }
 
 }

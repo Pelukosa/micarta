@@ -1,0 +1,48 @@
+@import url('https://fonts.googleapis.com/css2?family=Italianno&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+
+.c-body {
+    background: repeating-linear-gradient( 90deg, #e6dac26b, #ffffff 10px, #e6dac26b 10px, #ffffff 20px);
+}
+
+.c-container {
+    padding: 15px 10px;
+    font-family: 'Lobster', cursive;
+}
+
+.c-hero {
+    text-transform: uppercase;
+    font-weight: bold;
+    color: #616161;
+    font-size: 1.2em;
+    border-bottom: 2px solid #D15E46;
+}
+
+.c-product {
+    display: inline-block;
+    padding: 10px 0;
+    width: 100%;
+}
+
+.c-info {
+    width: 80%;
+    float: left;
+}
+
+.c-name {
+    color: #D15E46;
+    font-weight: bold;
+}
+
+.c-description {
+    color: #6d6d6d;
+    font-size: .9em;
+}
+
+.c-price {
+    color: #616161;
+    float: right;
+    width: 20%;
+    text-align: right;
+}

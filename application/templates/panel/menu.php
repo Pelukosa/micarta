@@ -38,7 +38,7 @@ $profile_url = $host . "/panel/profile/";
                             <li>
                                 <hr class="border-t mx-2 border-gray-400">
                             </li>
-                            <li><a href="php/destroy.php" class="px-4 py-2 block text-gray-900 hover:bg-gray-400 no-underline hover:no-underline">Salir</a></li>
+                            <li><a href="<?php echo App::getHost() . "/panel/php/destroy.php"; ?>" class="px-4 py-2 block text-gray-900 hover:bg-gray-400 no-underline hover:no-underline">Salir</a></li>
                         </ul>
                     </div>
                 </div>
