@@ -62,7 +62,15 @@ $families = $productfamilies->getList(" AND ID NOT IN ('" . implode("','", array
                 <div class="sm:w-100">
                     <h3 class="font-bold text-gray-900 text-2xl mr-2 p-2">Mis categorías activas</h3>
                 </div>
-                <div>
+                <div class="relative pull-right pl-4 pr-4 md:pr-0">
+                    <input type="search" placeholder="Buscar" class="w-full bg-gray-100 text-sm text-gray-800 transition border focus:outline-none focus:border-gray-700 rounded py-1 px-2 pl-10 appearance-none leading-normal">
+                    <div class="absolute search-icon" style="top: 0.375rem;left: 1.75rem;">
+                        <svg class="fill-current pointer-events-none text-gray-800 w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                            <path d="M12.9 14.32a8 8 0 1 1 1.41-1.41l5.35 5.33-1.42 1.42-5.33-5.34zM8 14A6 6 0 1 0 8 2a6 6 0 0 0 0 12z"></path>
+                        </svg>
+                    </div>
+                </div>
+                <div style="float: right;">
                     <button onclick="location.reload()" class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 mr-2 border-b-4 border-blue-700 hover:border-blue-500 rounded">
                         Guardar
                     </button>
@@ -194,7 +202,6 @@ $families = $productfamilies->getList(" AND ID NOT IN ('" . implode("','", array
                 }
                 return false;
             }
-
         </script>
 
 </body>
